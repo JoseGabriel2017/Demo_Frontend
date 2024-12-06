@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Livros</title>
+</head>
+<body>
+    <h1>Lista de Livros</h1>
+    <a href="/livros/novo">Adicionar Novo Livro</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="livro : ${livros}">
+            <td th:text="${livro.id_livro}"></td>
+            <td th:text="${livro.titulo}"></td>
+            <td th:text="${livro.autor}"></td>
+            <td>
+                <a th:href="@{/livros/{id}(id=${livro.id_livro})}">Detalhes</a>
+                <a th:href="@{/livros/delete/{id}(id=${livro.id_livro})}">Deletar</a>
+            </td>
+
+            <form th:action="@{/livros/search}" method="get">
+                <label for="titulo">Buscar por Título:</label>
+                <input type="text" name="titulo" id="titulo" required />
+                <button type="submit">Buscar</button>
+            </form>
+            
+            <form th:action="@{/livros/searchByISBN}" method="get">
+                <label for="isbn">Buscar por ISBN:</label>
+                <input type="text" name="isbn" id="isbn" required />
+                <button type="submit">Buscar</button>
+            </form>
+            
+        </tr>
+    </table>
+</body>
+</html>
